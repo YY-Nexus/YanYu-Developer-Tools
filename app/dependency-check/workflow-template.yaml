@@ -1,0 +1,47 @@
+name: 依赖健康检查
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # 每周一执行
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v3
+        
+      - name: 设置Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: 安装依赖
+        run: npm ci
+        
+      - name: 检查依赖健康状况
+        run: node scripts/check-dependencies.js
+        
+      - name: 检查安全漏洞
+        run: npm audit
+        
+      - name: 生成依赖报告
+        run: node scripts/generate-dependency-report.js
+        
+      - name: 上传依赖报告
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-report
+          path: dependency-report.json
+          
+      - name: 发送通知
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: alerts
+          SLACK_TITLE: 依赖健康检查失败
+          SLACK_MESSAGE: '项目依赖存在问题，请查看GitHub Actions日志'
+          SLACK_COLOR: danger

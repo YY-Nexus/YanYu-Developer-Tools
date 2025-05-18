@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 199 95% 74%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 199 95% 74%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 95% 74%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 199 95% 74%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* YanYu Cloud³ 自定义样式 */
+.yanyu-gradient-bg {
+  background: linear-gradient(135deg, #e0f7ff 0%, #f9fafb 100%);
+}
+
+.dark .yanyu-gradient-bg {
+  background: linear-gradient(135deg, #075985 0%, #1f2937 100%);
+}
+
+.yanyu-card {
+  @apply border border-border/40 bg-white shadow-sm backdrop-blur-sm transition-all hover:shadow-md dark:bg-gray-900/90;
+}
+
+.yanyu-section {
+  @apply rounded-xl border border-border/40 bg-white backdrop-blur-sm p-6 shadow-sm dark:bg-gray-900/90;
+}
+
+.yanyu-icon-bg {
+  @apply bg-primary/10 text-primary rounded-full p-2;
+}
+
+.yanyu-tab {
+  @apply data-[state=active]:bg-primary data-[state=active]:text-primary-foreground;
+}
+
+/* 七彩色标志 */
+.rainbow-text {
+  background: linear-gradient(to right, #ff595e, #ff924c, #ffca3a, #8ac926, #1982c4, #6a4c93, #b5179e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: rainbow-shift 3s ease infinite;
+}
+
+.rainbow-border {
+  position: relative;
+}
+
+.rainbow-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(to right, #ff595e, #ff924c, #ffca3a, #8ac926, #1982c4, #6a4c93, #b5179e);
+  border-radius: inherit;
+  z-index: -1;
+  animation: rainbow-shift 3s ease infinite;
+  background-size: 200% auto;
+  opacity: 0.7;
+}
+
+/* 按钮交互效果 */
+.btn-hover-effect {
+  @apply transition-all duration-300 hover:shadow-lg active:scale-95;
+}
+
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 btn-hover-effect;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 btn-hover-effect;
+}
+
+.btn-outline {
+  @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground btn-hover-effect;
+}
+
+.btn-ghost {
+  @apply hover:bg-accent hover:text-accent-foreground btn-hover-effect;
+}
+
+.btn-link {
+  @apply text-primary underline-offset-4 hover:underline btn-hover-effect;
+}
+
+/* 3D 立体效果 */
+.card-3d {
+  @apply transition-all duration-300;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.card-3d:hover {
+  transform: translateY(-5px) rotateX(5deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
